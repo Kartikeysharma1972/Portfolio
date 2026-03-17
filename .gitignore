@@ -1,0 +1,12 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Env files (keep secrets out of git)
+.env
+.env.*
+
