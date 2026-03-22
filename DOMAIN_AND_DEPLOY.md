@@ -40,3 +40,14 @@ href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 ## Umami analytics
 
 If you use Umami, add **both** domains in the Umami website settings (or one domain — depending on Umami UI) so stats stay clean.
+
+## SEO (meta + Open Graph + JSON-LD)
+
+`index.html` includes:
+
+- **`<meta name="description">`** — search snippet text (Google may still rewrite it).
+- **`<link rel="canonical">`** — primary URL is **`https://buildaiwithkartikey.site/`** (use this in bios; `iamjust.site` is secondary alias).
+- **Open Graph + Twitter** — better previews when the portfolio link is shared (LinkedIn, WhatsApp, etc.).
+- **`og:image`** — `https://buildaiwithkartikey.site/images/personalAI.png` (change filename in `<head>` if you add a dedicated `og-image.jpg` later).
+
+Optional: [Google Search Console](https://search.google.com/search-console) → add property `buildaiwithkartikey.site` → verify → **URL inspection** → request indexing for `/`.
