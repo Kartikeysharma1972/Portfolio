@@ -12,7 +12,7 @@ I just published a short **intro video** on who I am, how I work with teams, and
 
 If you’re hiring, collaborating, or exploring automation / agentic workflows — I’d love to connect.
 
-Portfolio: `https://buildaiwithkartikey.site` (also on `iamjust.site`)
+Portfolio: **`https://iamjust.site`** (also: `buildaiwithkartikey.site`)
 
 #AI #MachineLearning #LLM #LangGraph #FastAPI #SoftwareEngineering #Freelance
 
@@ -22,7 +22,7 @@ Portfolio: `https://buildaiwithkartikey.site` (also on `iamjust.site`)
 
 Short intro video is live — **who I am + how I build production AI** (not slide-deck AI).
 
-Portfolio: `buildaiwithkartikey.site`
+Portfolio: **`https://iamjust.site`**
 
 Open to freelance & serious projects — DM or comment.
 

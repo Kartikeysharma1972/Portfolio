@@ -4,21 +4,21 @@
 
 | Domain | Notes |
 |--------|--------|
-| `buildaiwithkartikey.site` | Primary custom domain (Netlify) |
-| `iamjust.site` | Second domain — **add as extra custom domain** on the **same** Netlify site |
+| **`iamjust.site`** | **Preferred / canonical** — use this in bios, resume, LinkedIn, posts |
+| `buildaiwithkartikey.site` | Extra domain — same Netlify site; can redirect to `iamjust.site` in Netlify (optional) |
 
 Both domains should point to the **same** Netlify project so one Git push updates both.
 
-## Netlify: add `iamjust.site`
+## Netlify: both domains on one site
 
-1. Netlify → your site → **Domain management** → **Add domain** → `iamjust.site`
-2. At your domain registrar, set DNS as Netlify shows (often **CNAME** `www` → `your-site.netlify.app`, and **A** or ALIAS for apex `@`).
-3. Wait for DNS + SSL (often 5–60 minutes).
+1. Netlify → your site → **Domain management** → **Add domain** for each domain you own.
+2. DNS at registrar as Netlify shows (often **CNAME** `www` → `your-site.netlify.app`, and **A** or ALIAS for apex `@`).
+3. Optional: set **Primary domain** to **`iamjust.site`** so Netlify treats it as the main URL.
 
 ## After you change domains — nothing extra in code
 
-This repo is static (`index.html`). As long as **both domains** hit the same deploy, the site is identical.  
-Optional: update any **hardcoded** links if you ever put one domain in bios (LinkedIn, resume).
+This repo is static (`index.html`). Canonical + Open Graph in **`index.html`** use **`https://iamjust.site/`** as the preferred URL.  
+Use **`iamjust.site`** everywhere you share the portfolio.
 
 ## YouTube Unlisted — step by step (then paste link in `index.html`)
 
@@ -46,8 +46,21 @@ If you use Umami, add **both** domains in the Umami website settings (or one dom
 `index.html` includes:
 
 - **`<meta name="description">`** — search snippet text (Google may still rewrite it).
-- **`<link rel="canonical">`** — primary URL is **`https://buildaiwithkartikey.site/`** (use this in bios; `iamjust.site` is secondary alias).
+- **`<link rel="canonical">`** — primary URL is **`https://iamjust.site/`**
 - **Open Graph + Twitter** — better previews when the portfolio link is shared (LinkedIn, WhatsApp, etc.).
-- **`og:image`** — `https://buildaiwithkartikey.site/images/personalAI.png` (change filename in `<head>` if you add a dedicated `og-image.jpg` later).
+- **`og:image`** — `https://iamjust.site/images/personalAI.png` (change in `<head>` if you add a dedicated `og-image.jpg` later).
 
-Optional: [Google Search Console](https://search.google.com/search-console) → add property `buildaiwithkartikey.site` → verify → **URL inspection** → request indexing for `/`.
+### Where you can **see results** (kahan dikhega)
+
+| What | Where to look |
+|------|----------------|
+| **Meta tags live** | Browser → open `https://iamjust.site/` → right‑click → **View page source** → search `canonical`, `og:`, `description` |
+| **Google indexing / clicks / queries** | [Google Search Console](https://search.google.com/search-console) → add property **`https://iamjust.site`** (and optionally `buildaiwithkartikey.site`) → **Performance** + **Pages** |
+| **Rich results / structured data** | [Google Rich Results Test](https://search.google.com/test/rich-results) — paste `https://iamjust.site/` |
+| **Link preview (WhatsApp / LinkedIn / FB)** | [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) — paste URL → **Scrape again** after deploy |
+| **LinkedIn preview** | [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) — paste `https://iamjust.site/` |
+| **Umami (visitors)** | Your Umami dashboard (site you added) |
+
+Add **both** domains in Search Console if both stay public; canonical tells Google **`iamjust.site`** is preferred.
+
+Optional: Search Console → **URL inspection** → `https://iamjust.site/` → **Request indexing** after big updates.
