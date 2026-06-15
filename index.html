@@ -390,6 +390,101 @@ footer a:hover{color:var(--accent)}
 @media(max-width:600px){
   .about-intro-card{padding:28px 22px}
 }
+
+/* ════════════════════════════════════════════════════════════
+   HD / DEPTH / 3D ENHANCEMENT LAYER
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Crisp "HD" rendering ── */
+html{-webkit-text-size-adjust:100%}
+body{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"kern" 1,"liga" 1,"calt" 1;
+}
+.hero-h1,.s-title,.cta-title,.counter-n,.hstat-n,.loader-name,.profile-name{
+  text-rendering:geometricPrecision;letter-spacing:-1.5px;
+}
+img{image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges;-webkit-backface-visibility:hidden}
+.proj-motion-img,.exp-logo-img,.testi-avatar img{image-rendering:auto}
+
+/* Richer, layered "real" shadows for floating cards */
+.profile-card{
+  box-shadow:0 2px 4px rgba(26,23,20,.04),0 8px 16px rgba(26,23,20,.06),
+             0 24px 48px rgba(26,23,20,.10),0 48px 88px rgba(26,23,20,.08);
+}
+.proj-card,.svc-card,.proc-card,.exp-card,.faq-item,.about-intro-card{
+  box-shadow:0 1px 2px rgba(26,23,20,.03),0 6px 18px rgba(26,23,20,.05);
+}
+
+/* ── 3D foundations ── */
+.hero-inner{perspective:1600px}
+.proj-grid,.svc-grid,.proc-grid{perspective:1400px}
+.profile-card,.proj-card,.svc-card,.proc-card,.exp-card{
+  transform-style:preserve-3d;will-change:transform;
+}
+
+/* Mouse-tracked tilt — CSS vars set by JS (--tx = rotateY, --ty = rotateX, --lift = px) */
+/* These rules are placed AFTER the originals so the !important tilt wins on hover. */
+.proj-card:hover{
+  transform:perspective(1100px) rotateX(var(--ty,0deg)) rotateY(var(--tx,0deg)) translateY(-8px) translateZ(22px)!important;
+}
+.svc-card:hover{
+  transform:perspective(1000px) rotateX(var(--ty,0deg)) rotateY(var(--tx,0deg)) translateY(-6px) translateZ(18px)!important;
+}
+.proc-card:hover{
+  transform:perspective(1000px) rotateX(var(--ty,0deg)) rotateY(var(--tx,0deg)) translateY(-5px) translateZ(14px)!important;
+}
+.exp-card:hover{
+  transform:perspective(1300px) rotateX(var(--ty,0deg)) rotateY(var(--tx,0deg)) translateY(-4px) translateZ(10px)!important;
+}
+/* While actively tilting, track the cursor crisply; settle smoothly on leave */
+.proj-card.tilting,.svc-card.tilting,.proc-card.tilting,.exp-card.tilting{
+  transition:transform .1s ease-out,box-shadow .4s ease,border-color .35s ease!important;
+}
+
+/* Lift inner content forward for parallax depth inside cards (engages on hover) */
+.proj-card .proj-body,.svc-card .svc-ico,.svc-card .svc-title,.svc-card .svc-desc{
+  transition:transform .35s ease;transform:translateZ(0);
+}
+.proj-card:hover .proj-body{transform:translateZ(30px)}
+.svc-card:hover .svc-title,.svc-card:hover .svc-desc{transform:translateZ(22px)}
+.svc-card:hover .svc-ico{transform:translateZ(50px) scale(1.05)}
+
+/* Dynamic glare/sheen that follows the cursor on tilt */
+.tilt-glare{
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:5;
+  opacity:0;transition:opacity .35s ease;mix-blend-mode:overlay;
+  background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),
+            rgba(255,255,255,.55),rgba(255,255,255,0) 45%);
+}
+.profile-card:hover .tilt-glare,.proj-card:hover .tilt-glare{opacity:1}
+
+/* Hero ambient depth orbs (mouse-parallax layers behind hero) */
+.hero-depth{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(40px);will-change:transform;opacity:.5}
+.hero-orb.o1{width:420px;height:420px;left:-80px;top:8%;
+  background:radial-gradient(circle,rgba(61,122,94,.22),transparent 70%)}
+.hero-orb.o2{width:340px;height:340px;right:6%;bottom:4%;
+  background:radial-gradient(circle,rgba(42,92,69,.18),transparent 70%)}
+.hero-orb.o3{width:260px;height:260px;left:42%;top:48%;
+  background:radial-gradient(circle,rgba(143,200,170,.16),transparent 70%)}
+
+/* Profile card floats with a gentle idle bob (paused while tilting) */
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* Respect reduced-motion / disable 3D where it would hurt */
+@media(hover:none),(max-width:960px){
+  .proj-card:hover,.svc-card:hover,.proc-card:hover,.exp-card:hover{
+    transform:translateY(-4px)!important;
+  }
+  .proj-card .proj-body,.svc-card .svc-title,.svc-card .svc-desc,.svc-card .svc-ico{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-orb,.tilt-glare{display:none}
+  *{transform:none!important}
+}
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="80d26819-4d8e-45ca-a4de-c317c58d5dda"></script>
 </head>
@@ -423,6 +518,7 @@ footer a:hover{color:var(--accent)}
 <section class="hero" id="home">
   <div class="hero-bg-circle"></div>
   <div class="hero-dots"></div>
+  <div class="hero-depth"><div class="hero-orb o1"></div><div class="hero-orb o2"></div><div class="hero-orb o3"></div></div>
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-tag"><span class="pdot"></span>Available for Freelance</div>
@@ -454,6 +550,7 @@ footer a:hover{color:var(--accent)}
         <div class="profile-loc">Jaipur, Rajasthan, India</div>
       </div>
       <div class="profile-avail"><span class="pdot"></span>Open to freelance projects</div>
+      <div class="tilt-glare"></div>
     </div>
   </div>
 </section>
@@ -742,30 +839,6 @@ footer a:hover{color:var(--accent)}
         <div class="proj-links"><a href="https://github.com/Kartikeysharma1972/Reviewmesir" class="plink plink-main" target="_blank">View on GitHub →</a></div>
       </div>
     </div>
-    <div class="proj-card">
-      <div class="proj-thumb">
-        <img src="./images/stock price.png" alt="Stock Price Prediction" class="proj-motion-img" loading="lazy">
-      </div>
-      <div class="proj-body">
-        <div class="proj-meta"><div class="proj-type">Machine Learning</div></div>
-        <div class="proj-name">Stock Price Prediction</div>
-        <p class="proj-desc">Advanced machine learning system for stock market price forecasting using historical data analysis. Features comprehensive feature engineering, multiple regression models, performance evaluation metrics, and interactive visualization dashboards for financial insights.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span class="tag">Time Series</span></div>
-        <div class="proj-links"><a href="https://github.com/Kartikeysharma1972/Stock_price_prediction" class="plink plink-main" target="_blank">View on GitHub →</a></div>
-      </div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-thumb">
-        <img src="./images/crop yield.png" alt="Crop Yield Prediction" class="proj-motion-img" loading="lazy">
-      </div>
-      <div class="proj-body">
-        <div class="proj-meta"><div class="proj-type">Machine Learning</div></div>
-        <div class="proj-name">Crop Yield Prediction</div>
-        <p class="proj-desc">Agricultural intelligence platform predicting crop yields using machine learning regression models. Features comprehensive exploratory data analysis, advanced feature engineering, climate and soil factor integration, and impact visualization for sustainable farming decisions.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Scikit-learn</span><span class="tag">Agriculture</span></div>
-        <div class="proj-links"><a href="https://github.com/Kartikeysharma1972/crop_yield_prediction" class="plink plink-main" target="_blank">View on GitHub →</a></div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -817,19 +890,19 @@ footer a:hover{color:var(--accent)}
   </div>
   <div class="testi-scroll" style="margin-top:48px">
     <div class="testi-track">
-      <div class="testi-card"><p class="testi-quote">"Very solid work. The multi-agent support system actually reduced our manual workload. We had a few iterations on the prompts, but Kartikey was quick to fix things."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=12" alt="Rohan profile photo"></div><div><div class="testi-name">Rohan M.</div><div class="testi-role">CTO, SaaS Startup</div></div></div></div>
+      <div class="testi-card"><p class="testi-quote">"I've worked with Kartikey on a few AI projects and he's genuinely good. Clean, well-structured code and a real understanding of agent architectures — not just API wrappers. Ships fast and is easy to build with."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=13" alt="Ayush Mittal profile photo"></div><div><div class="testi-name"><a href="https://www.linkedin.com/in/ayush-mittal-b83869224/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Ayush Mittal ↗</a></div><div class="testi-role">Software Engineer (AI)</div></div></div></div>
       <div class="testi-card"><p class="testi-quote">"Good experience overall. The research agent saves us time on desk research. We still tweak it sometimes for niche topics, but the base system is strong."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=47" alt="Sarah profile photo"></div><div><div class="testi-name">Sarah K.</div><div class="testi-role">Head of Research</div></div></div></div>
       <div class="testi-card"><p class="testi-quote">"Understood our requirements quickly and shipped on the agreed timeline. Some edge cases came up later, but he helped us handle them without drama."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=33" alt="Aarav profile photo"></div><div><div class="testi-name">Aarav P.</div><div class="testi-role">Founder, AI Agency</div></div></div></div>
       <div class="testi-card"><p class="testi-quote">"The finance tool is now part of our workflow. UI is clean, and streaming responses feel nice. There were a couple of minor bugs at launch, but they were fixed fast."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=5" alt="Priya profile photo"></div><div><div class="testi-name">Priya S.</div><div class="testi-role">Product Manager</div></div></div></div>
       <div class="testi-card"><p class="testi-quote">"Knows his way around production AI. Not just fancy demos. The RAG system is reliable enough that our team actually uses it daily."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=58" alt="Marcus profile photo"></div><div><div class="testi-name">Marcus L.</div><div class="testi-role">Senior Engineer</div></div></div></div>
-      <div class="testi-card"><p class="testi-quote">"Easy to communicate with and open to feedback. We did not write long reviews, but overall it was a good collaboration."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=41" alt="Neha profile photo"></div><div><div class="testi-name">Neha T.</div><div class="testi-role">Operations Lead</div></div></div></div>
+      <div class="testi-card"><p class="testi-quote">"Worked alongside Kartikey on agent and automation systems. He really knows his way around AI agents and harness engineering, and the work held up in production. Sharp, reliable, and someone I'd happily collaborate with again."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=68" alt="uddit profile photo"></div><div><div class="testi-name"><a href="https://www.linkedin.com/in/lorduddit-/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">uddit ↗</a></div><div class="testi-role">AI Agents · Harness Engineering · Enterprise Automation &amp; DevOps</div></div></div></div>
       <!-- Duplicate for continuous scroll -->
-      <div class="testi-card"><p class="testi-quote">"Very solid work. The multi-agent support system actually reduced our manual workload. We had a few iterations on the prompts, but Kartikey was quick to fix things."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=12" alt="Rohan profile photo"></div><div><div class="testi-name">Rohan M.</div><div class="testi-role">CTO, SaaS Startup</div></div></div></div>
+      <div class="testi-card"><p class="testi-quote">"I've worked with Kartikey on a few AI projects and he's genuinely good. Clean, well-structured code and a real understanding of agent architectures — not just API wrappers. Ships fast and is easy to build with."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=13" alt="Ayush Mittal profile photo"></div><div><div class="testi-name"><a href="https://www.linkedin.com/in/ayush-mittal-b83869224/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">Ayush Mittal ↗</a></div><div class="testi-role">Software Engineer (AI)</div></div></div></div>
       <div class="testi-card"><p class="testi-quote">"Good experience overall. The research agent saves us time on desk research. We still tweak it sometimes for niche topics, but the base system is strong."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=47" alt="Sarah profile photo"></div><div><div class="testi-name">Sarah K.</div><div class="testi-role">Head of Research</div></div></div></div>
       <div class="testi-card"><p class="testi-quote">"Understood our requirements quickly and shipped on the agreed timeline. Some edge cases came up later, but he helped us handle them without drama."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=33" alt="Aarav profile photo"></div><div><div class="testi-name">Aarav P.</div><div class="testi-role">Founder, AI Agency</div></div></div></div>
       <div class="testi-card"><p class="testi-quote">"The finance tool is now part of our workflow. UI is clean, and streaming responses feel nice. There were a couple of minor bugs at launch, but they were fixed fast."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=5" alt="Priya profile photo"></div><div><div class="testi-name">Priya S.</div><div class="testi-role">Product Manager</div></div></div></div>
       <div class="testi-card"><p class="testi-quote">"Knows his way around production AI. Not just fancy demos. The RAG system is reliable enough that our team actually uses it daily."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=58" alt="Marcus profile photo"></div><div><div class="testi-name">Marcus L.</div><div class="testi-role">Senior Engineer</div></div></div></div>
-      <div class="testi-card"><p class="testi-quote">"Easy to communicate with and open to feedback. We did not write long reviews, but overall it was a good collaboration."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=41" alt="Neha profile photo"></div><div><div class="testi-name">Neha T.</div><div class="testi-role">Operations Lead</div></div></div></div>
+      <div class="testi-card"><p class="testi-quote">"Worked alongside Kartikey on agent and automation systems. He really knows his way around AI agents and harness engineering, and the work held up in production. Sharp, reliable, and someone I'd happily collaborate with again."</p><div class="testi-author"><div class="testi-avatar"><img src="https://i.pravatar.cc/80?img=68" alt="uddit profile photo"></div><div><div class="testi-name"><a href="https://www.linkedin.com/in/lorduddit-/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">uddit ↗</a></div><div class="testi-role">AI Agents · Harness Engineering · Enterprise Automation &amp; DevOps</div></div></div></div>
     </div>
   </div>
 </div>
@@ -1146,6 +1219,71 @@ function updateTimezone(){
 // Update timezone every minute
 setInterval(updateTimezone,60000);
 updateTimezone(); // Initial call
+
+// ── 3D TILT + DEPTH ─────────────────────────────────────────
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const fine   = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(reduce || !fine) return; // skip on touch / reduced-motion
+
+  // 1) Card tilt — CSS-var driven (proj/svc/proc/exp)
+  document.querySelectorAll('.proj-card,.svc-card,.proc-card,.exp-card').forEach(card=>{
+    // Inject a dynamic glare sheen on project cards
+    if(card.classList.contains('proj-card') && !card.querySelector(':scope > .tilt-glare')){
+      const g=document.createElement('div'); g.className='tilt-glare';
+      if(getComputedStyle(card).position==='static') card.style.position='relative';
+      card.appendChild(g);
+    }
+    const max = card.classList.contains('proj-card') ? 7
+              : card.classList.contains('svc-card')  ? 6
+              : card.classList.contains('proc-card') ? 5 : 4;
+    card.addEventListener('pointerenter',()=>card.classList.add('tilting'));
+    card.addEventListener('pointermove',e=>{
+      const r=card.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+      card.style.setProperty('--tx',( (px-0.5)*2*max).toFixed(2)+'deg'); // rotateY
+      card.style.setProperty('--ty',(-(py-0.5)*2*max).toFixed(2)+'deg'); // rotateX
+      card.style.setProperty('--gx',(px*100).toFixed(1)+'%');
+      card.style.setProperty('--gy',(py*100).toFixed(1)+'%');
+    });
+    card.addEventListener('pointerleave',()=>{
+      card.classList.remove('tilting');
+      card.style.setProperty('--tx','0deg');
+      card.style.setProperty('--ty','0deg');
+    });
+  });
+
+  // 2) Hero profile card — buttery GSAP tilt + glare
+  const pcard=document.getElementById('pcard');
+  if(pcard && window.gsap){
+    const glare=pcard.querySelector('.tilt-glare');
+    gsap.set(pcard,{transformPerspective:1200,transformOrigin:'center center'});
+    const rotY=gsap.quickTo(pcard,'rotationY',{duration:.5,ease:'power3.out'});
+    const rotX=gsap.quickTo(pcard,'rotationX',{duration:.5,ease:'power3.out'});
+    pcard.addEventListener('pointermove',e=>{
+      const r=pcard.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+      rotY((px-0.5)*16); rotX(-(py-0.5)*16);
+      if(glare){ glare.style.setProperty('--gx',(px*100)+'%'); glare.style.setProperty('--gy',(py*100)+'%'); }
+    });
+    pcard.addEventListener('pointerleave',()=>{ rotY(0); rotX(0); });
+  }
+
+  // 3) Hero ambient depth — orbs parallax to the cursor
+  const hero=document.querySelector('.hero');
+  const orbs=[...document.querySelectorAll('.hero-orb')];
+  if(hero && orbs.length && window.gsap){
+    const layers=orbs.map(o=>({
+      x:gsap.quickTo(o,'x',{duration:.9,ease:'power2.out'}),
+      y:gsap.quickTo(o,'y',{duration:.9,ease:'power2.out'}),
+      d:o.classList.contains('o1')?46:o.classList.contains('o2')?30:18
+    }));
+    hero.addEventListener('pointermove',e=>{
+      const cx=e.clientX/window.innerWidth-0.5, cy=e.clientY/window.innerHeight-0.5;
+      layers.forEach(l=>{ l.x(cx*l.d); l.y(cy*l.d); });
+    });
+  }
+})();
 </script>
 </body>
 </html>
