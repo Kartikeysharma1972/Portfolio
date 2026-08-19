@@ -10,3 +10,7 @@ Desktop.ini
 .env
 .env.*
 
+
+# Local backups
+*.backup-*.html
+index.backup*.html
