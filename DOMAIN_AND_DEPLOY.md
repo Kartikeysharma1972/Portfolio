@@ -4,8 +4,8 @@
 
 | Domain | Notes |
 |--------|--------|
-| **`iamjust.site`** | **Preferred / canonical** — use this in bios, resume, LinkedIn, posts |
-| `buildaiwithkartikey.site` | Extra domain — same Netlify site; can redirect to `iamjust.site` in Netlify (optional) |
+| **`iamjustk.site`** | **Preferred / canonical** — use this in bios, resume, LinkedIn, posts |
+| `buildaiwithkartikey.site` | Extra domain — same Netlify site; can redirect to `iamjustk.site` in Netlify (optional) |
 
 Both domains should point to the **same** Netlify project so one Git push updates both.
 
@@ -13,12 +13,12 @@ Both domains should point to the **same** Netlify project so one Git push update
 
 1. Netlify → your site → **Domain management** → **Add domain** for each domain you own.
 2. DNS at registrar as Netlify shows (often **CNAME** `www` → `your-site.netlify.app`, and **A** or ALIAS for apex `@`).
-3. Optional: set **Primary domain** to **`iamjust.site`** so Netlify treats it as the main URL.
+3. Optional: set **Primary domain** to **`iamjustk.site`** so Netlify treats it as the main URL.
 
 ## After you change domains — nothing extra in code
 
-This repo is static (`index.html`). Canonical + Open Graph in **`index.html`** use **`https://iamjust.site/`** as the preferred URL.  
-Use **`iamjust.site`** everywhere you share the portfolio.
+This repo is static (`index.html`). Canonical + Open Graph in **`index.html`** use **`https://iamjustk.site/`** as the preferred URL.  
+Use **`iamjustk.site`** everywhere you share the portfolio.
 
 ## YouTube Unlisted — step by step (then paste link in `index.html`)
 
@@ -46,21 +46,21 @@ If you use Umami, add **both** domains in the Umami website settings (or one dom
 `index.html` includes:
 
 - **`<meta name="description">`** — search snippet text (Google may still rewrite it).
-- **`<link rel="canonical">`** — primary URL is **`https://iamjust.site/`**
+- **`<link rel="canonical">`** — primary URL is **`https://iamjustk.site/`**
 - **Open Graph + Twitter** — better previews when the portfolio link is shared (LinkedIn, WhatsApp, etc.).
-- **`og:image`** — `https://iamjust.site/images/personalAI.png` (change in `<head>` if you add a dedicated `og-image.jpg` later).
+- **`og:image`** — `https://iamjustk.site/images/personalAI.png` (change in `<head>` if you add a dedicated `og-image.jpg` later).
 
 ### Where you can **see results** (kahan dikhega)
 
 | What | Where to look |
 |------|----------------|
-| **Meta tags live** | Browser → open `https://iamjust.site/` → right‑click → **View page source** → search `canonical`, `og:`, `description` |
-| **Google indexing / clicks / queries** | [Google Search Console](https://search.google.com/search-console) → add property **`https://iamjust.site`** (and optionally `buildaiwithkartikey.site`) → **Performance** + **Pages** |
-| **Rich results / structured data** | [Google Rich Results Test](https://search.google.com/test/rich-results) — paste `https://iamjust.site/` |
+| **Meta tags live** | Browser → open `https://iamjustk.site/` → right‑click → **View page source** → search `canonical`, `og:`, `description` |
+| **Google indexing / clicks / queries** | [Google Search Console](https://search.google.com/search-console) → add property **`https://iamjustk.site`** (and optionally `buildaiwithkartikey.site`) → **Performance** + **Pages** |
+| **Rich results / structured data** | [Google Rich Results Test](https://search.google.com/test/rich-results) — paste `https://iamjustk.site/` |
 | **Link preview (WhatsApp / LinkedIn / FB)** | [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) — paste URL → **Scrape again** after deploy |
-| **LinkedIn preview** | [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) — paste `https://iamjust.site/` |
+| **LinkedIn preview** | [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) — paste `https://iamjustk.site/` |
 | **Umami (visitors)** | Your Umami dashboard (site you added) |
 
-Add **both** domains in Search Console if both stay public; canonical tells Google **`iamjust.site`** is preferred.
+Add **both** domains in Search Console if both stay public; canonical tells Google **`iamjustk.site`** is preferred.
 
-Optional: Search Console → **URL inspection** → `https://iamjust.site/` → **Request indexing** after big updates.
+Optional: Search Console → **URL inspection** → `https://iamjustk.site/` → **Request indexing** after big updates.
