@@ -29,7 +29,7 @@ AI Developer helping teams put reliable AI in production — LLM apps, RAG, agen
 ```
 I build AI that actually ships.
 
-Not notebooks, not throwaway demos — production-grade AI systems that real users depend on. Across 22+ projects and 6 companies, I've shipped LLM applications, RAG pipelines, autonomous agents, and full-stack AI products end to end.
+Not notebooks, not throwaway demos — production-grade AI systems that real users depend on. Across 20+ projects and 6 companies, I've shipped LLM applications, RAG pipelines, autonomous agents, and full-stack AI products end to end.
 
 What I do:
 • LLM apps & agents — reliable systems with structured, validated outputs (not fragile prompt chains)
@@ -134,7 +134,7 @@ Jaipur, India
 - **Multi-Agent Customer Support System** — Autonomous ticket triage & resolution. [live + GitHub]
 - **FinanceIQ** — AI financial analysis with anomaly detection & dashboards. [live + GitHub]
 - **AI Avatar Tutor** — Voice-first 3D tutor, STT→LLM→TTS, EN/HI/Hinglish. [live/video]
-- **Portfolio** — iamjustk.site (22 production-grade AI systems)
+- **Portfolio** — iamjustk.site (20 production-grade AI systems)
 - **Intro video** — https://youtu.be/PvXfUxtWwE4
 
 ---
